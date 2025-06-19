@@ -1,0 +1,51 @@
+CREATE TABLE jokes (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+title TEXT NOT NULL,
+setup TEXT NOT NULL,
+punchline TEXT NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+last_edited TIMESTAMP
+);
+
+CREATE TABLE tags (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT
+);
+
+CREATE TABLE jokes_tags (
+joke_id INTEGER NOT NULL,
+tags_id INTEGER NOT NULL,
+FOREIGN KEY(joke_id) REFERENCES jokes(id),
+FOREIGN KEY(tags_id) REFERENCES tags(id)
+);
+
+CREATE TABLE joke_versions (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+joke_id INTEGER NOT NULL,
+version TEXT NOT NULL DEFAULT 'v1',
+setup TEXT,
+punchline TEXT,
+edited_at TIMESTAMP,
+FOREIGN KEY(joke_id) REFERENCES jokes(id)
+);
+
+CREATE TABLE sets (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT,
+created_at TIMESTAMP
+);
+
+CREATE TABLE set_jokes (
+set_id INTEGER NOT NULL,
+joke_id INTEGER NOT NULL,
+order_index INTEGER NOT NULL,
+FOREIGN KEY(set_id) REFERENCES sets(id),
+FOREIGN KEY(joke_id) REFERENCES jokes(id)
+);
+
+CREATE TABLE writing_log (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+date DATE,
+joke_id INTEGER NOT NULL,
+FOREIGN KEY(joke_id) REFERENCES jokes(id)
+);
