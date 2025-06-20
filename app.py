@@ -1,15 +1,30 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from datetime import datetime
 import sqlite3
+import requests
 
 app = Flask(__name__)
+app.secret_key = '9yZ)<2$lc`*pG>948{(ZrHk~]FpFSrk%M_<aeBDZ2~JyFV[6tk]ww!y%PB<X|3['
 
 @app.route('/')
 def index():
-    return render_template('home.html', active_page='home')
+    response = requests.get("https://icanhazdadjoke.com/", headers={"Accept": "application/json"})
+    joke = response.json().get("joke")
+    print(joke)
+    return render_template('home.html', active_page='home', joke=joke)
 
-@app.route('/new_joke')
+@app.route('/new_joke', methods=["GET", "POST"])
 def new_joke():
+    if request.method == "POST":
+        # Get fields from user input and validate:
+        error = False
+        # Title
+        title = request.form.get("title")
+        if not title:
+            flash("Please enter a title", "title")
+            error = True
+
+        return render_template('new_joke.html')
     with open("resources/tags.txt", "r") as file:
         tags = [line.strip() for line in file if line.strip()]
     return render_template('new_joke.html', active_page='new_joke', tags=tags)
