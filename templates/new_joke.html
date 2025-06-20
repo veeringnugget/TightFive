@@ -18,16 +18,16 @@
 <!--Start of form-->
 <!--Start of top-row of form (title / tag)-->
 <!--Start of title-->
-<form class="row g-3">
+<form class="row g-3" method="post">
   <div class="col-md-9">
-    <label class="form-label">Title</label>
+    <label class="form-label">Title*</label>
     <input type="title" class="form-control" placeholder="Clickbait-worthy title here..." name="title">
   </div>
 <!--End of title-->
 
     <!--Start of tags-->
   <div class="col d-flex flex-column">
-    <label class="form-label">Pick a Tag</label>
+    <label class="form-label">Pick a Tag*</label>
     <select class="form-select mt-auto" aria-label="form-select" name="tag">
         <option disabled selected>Choose...</option>
         {% for tag in tags %}
@@ -40,14 +40,14 @@
 
     <!--Start of setup-->
     <div class="mb-3">
-        <label class="form-label">Setup</label>
+        <label class="form-label">Setup*</label>
         <textarea class="form-control" rows="3" placeholder="Set the scene or ask the question..." name="setup"></textarea>
     </div>
     <!--End of setup-->
     
     <!--Start of punchline-->
     <div class="mb-3">
-        <label class="form-label">Punchline</label>
+        <label class="form-label">Punchline*</label>
         <textarea class="form-control" rows="3" placeholder="Deliver the twist or the laugh..." name="punchline"></textarea>
     </div>
     <!--End of punchline-->
@@ -74,7 +74,7 @@
     <!--End of bottom row (status / notes)-->
 
     <!--Start of button-->
-    <a href="#" class="btn btn-primary btn-sm mt-5">Submit</a>
+    <button type="submit" class="btn btn-primary btn-sm mt-5">Submit</button>
     <!--End of button-->
     <!--End of form-->
 
