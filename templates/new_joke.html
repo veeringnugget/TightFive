@@ -1,7 +1,74 @@
 {% extends "layout.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Write a Joke!{% endblock %}
 {% block body %}
 
-<h4>New_Joke</h4>
+<!-- Start of Page Header-->
+<div class="row text-center p-3">
+    <h3>Write a New Joke</h3>
+</div>
+<!--Start of page alert-->
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <u>Need help getting started?</u> Generate a writing prompt.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<!--End of page alert-->
+
+<!--End of Page Header-->
+<!--Start of form-->
+<!--Start of top-row of form (title / tag)-->
+<!--Start of title-->
+<form class="row g-3">
+  <div class="col-md-9">
+    <label class="form-label">Title</label>
+    <input type="title" class="form-control" placeholder="Clickbait-worthy title here...">
+  </div>
+<!--End of title-->
+<!--Start of tags-->
+  <div class="col d-flex flex-column">
+    <label class="form-label">Pick a Tag</label>
+    <select class="form-select mt-auto" aria-label="form-select">
+        <option selected>Choose...</option>
+        {% for tag in tags %}
+        <option>{{ tag }}</option>
+        {% endfor %}
+    </select>
+  </div>
+  <!--Start of tags-->
+  <!--End of top-row of form (title / tag)-->
+  <!--Start of setup text-->
+    <div class="mb-3">
+        <label class="form-label">Setup</label>
+        <textarea class="form-control" rows="3" placeholder="Set the scene or ask the question..."></textarea>
+    </div>
+<!--End of setup text-->
+  <!--Start of punchline text-->
+    <div class="mb-3">
+        <label class="form-label">Punchline</label>
+        <textarea class="form-control" rows="3" placeholder="Deliver the twist or the laugh..."></textarea>
+    </div>
+<!--End of punchline text-->
+<!--Start of extras-->
+<!--Start of joke status-->
+  <div class="col d-flex flex-column">
+    <label class="form-label">Status</label>
+    <select class="form-select" aria-label="form-select">
+        <option selected>Choose...</option>
+        <option>Draft</option>
+        <option>Ready</option>
+        <option>Needs Work</option>
+    </select>
+  </div>
+  <!--End of joke status-->
+  <!--Start of extra notes-->
+    <div class="col">
+        <label class="form-label">Any extra notes?</label>
+        <textarea class="form-control" rows="1" placeholder="Add here..."></textarea>
+    </div>
+    <!--End of extra notes-->
+    <!--End of extras-->
+    <!--Start of button-->
+    <a href="#" class="btn btn-primary btn-sm mt-5">Submit</a>
+    <!--End of button-->
+    <!--End of form-->
 
 {% endblock %}
