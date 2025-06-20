@@ -3,8 +3,10 @@ id INTEGER PRIMARY KEY AUTOINCREMENT,
 title TEXT NOT NULL,
 setup TEXT NOT NULL,
 punchline TEXT NOT NULL,
+status TEXT DEFAULT 'draft',
+notes TEXT,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-last_edited TIMESTAMP
+last_edited TIMESTAMP);
 );
 
 CREATE TABLE tags (
