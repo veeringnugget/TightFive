@@ -1,3 +1,13 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
 .nav-link.active {
     color: blue!important;
+}
+
+.error {
+    margin-top: 5px;
+    margin-left: 12px;
+    font-weight: 500;
+    color: red;
 }
