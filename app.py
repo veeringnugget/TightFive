@@ -10,7 +10,9 @@ def index():
 
 @app.route('/new_joke')
 def new_joke():
-    return render_template('new_joke.html', active_page='new_joke')
+    with open("resources/tags.txt", "r") as file:
+        tags = [line.strip() for line in file if line.strip()]
+    return render_template('new_joke.html', active_page='new_joke', tags=tags)
 
 @app.route('/sets')
 def sets():
