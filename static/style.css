@@ -11,3 +11,7 @@ body {
     font-weight: 500;
     color: red;
 }
+
+u:hover {
+    cursor: pointer;
+}
