@@ -9,7 +9,7 @@
 
 <!--Start of page alert-->
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <u>Need help getting started?</u> Generate a writing prompt.
+  <u id="prompt">Need help getting started?</u> Generate a writing prompt.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <!--End of page alert-->
@@ -22,18 +22,36 @@
   <div class="col-md-9">
     <label class="form-label">Title*</label>
     <input type="title" class="form-control" placeholder="Clickbait-worthy title here..." name="title">
+    <!--Add flash if error-->
+    {% with messages = get_flashed_messages(category_filter=["title"]) %}
+        {% if messages %}
+            {% for error in messages %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <!--Flash end-->
   </div>
 <!--End of title-->
 
     <!--Start of tags-->
   <div class="col d-flex flex-column">
     <label class="form-label">Pick a Tag*</label>
-    <select class="form-select mt-auto" aria-label="form-select" name="tag">
+    <select class="form-select" aria-label="form-select" name="tag">
         <option disabled selected>Choose...</option>
         {% for tag in tags %}
         <option>{{ tag }}</option>
         {% endfor %}
     </select>
+    <!--Add flash if error-->
+    {% with messages = get_flashed_messages(category_filter=["tag"]) %}
+      {% if messages %}
+        {% for error in messages %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <!--Flash end-->
   </div>
     <!--End of tags-->
     <!--End of top-row of form (title / tag)-->
@@ -42,6 +60,15 @@
     <div class="mb-3">
         <label class="form-label">Setup*</label>
         <textarea class="form-control" rows="3" placeholder="Set the scene or ask the question..." name="setup"></textarea>
+      <!--Add flash if error-->
+      {% with messages = get_flashed_messages(category_filter=["setup"]) %}
+        {% if messages %}
+          {% for error in messages %}
+            <p class="error">{{ error }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      <!--Flash end-->        
     </div>
     <!--End of setup-->
     
@@ -49,6 +76,15 @@
     <div class="mb-3">
         <label class="form-label">Punchline*</label>
         <textarea class="form-control" rows="3" placeholder="Deliver the twist or the laugh..." name="punchline"></textarea>
+      <!--Add flash if error-->
+      {% with messages = get_flashed_messages(category_filter=["punchline"]) %}
+        {% if messages %}
+          {% for error in messages %}
+            <p class="error">{{ error }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      <!--Flash end-->         
     </div>
     <!--End of punchline-->
 
