@@ -15,11 +15,20 @@ def index():
     response = requests.get(api_url, headers=headers)
     joke = response.json()["joke"]
 
-    # Output a random prompt
+    # Generate a random prompt when the page loads
     row = open("resources/comedy_prompts.txt")
     randomprompt = random.choice(row.readlines())
-    
+
     return render_template('home.html', active_page='home', joke=joke, prompt=randomprompt)
+
+@app.route('/gen_new_prompt')
+def gen_new_prompt():
+    # Store in a variable a random line from comedy_prompts.txt
+    row = open("resources/comedy_prompts.txt")
+    randomprompt = random.choice(row.readlines())
+
+    # Return the randomprompt
+    return randomprompt
 
 @app.route('/new_joke', methods=["GET", "POST"])
 def new_joke():
