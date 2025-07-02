@@ -16,10 +16,9 @@ def index():
     joke = response.json()["joke"]
 
     # Output a random prompt
-    with open("resources/comedy_prompts.txt", "r") as file:
-        prompt = [line.strip() for line in file if line.strip()]
-    randomprompt = (random.choice(prompt))
-
+    row = open("resources/comedy_prompts.txt")
+    randomprompt = random.choice(row.readlines())
+    
     return render_template('home.html', active_page='home', joke=joke, prompt=randomprompt)
 
 @app.route('/new_joke', methods=["GET", "POST"])
