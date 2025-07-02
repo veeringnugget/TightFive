@@ -13,7 +13,7 @@ def index():
     api_url = "https://icanhazdadjoke.com/"
     headers = {"Accept": "application/json"}
     response = requests.get(api_url, headers=headers)
-    joke = response.json()
+    joke = response.json()["joke"]
 
     # Output a random prompt
     with open("resources/comedy_prompts.txt", "r") as file:
