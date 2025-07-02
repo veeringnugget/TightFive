@@ -10,8 +10,10 @@ app.secret_key = '9yZ)<2$lc`*pG>948{(ZrHk~]FpFSrk%M_<aeBDZ2~JyFV[6tk]ww!y%PB<X|3
 @app.route('/')
 def index():
     # API for Joke Generator
-    response = requests.get("https://icanhazdadjoke.com/", headers={"Accept": "application/json"})
-    joke = response.json().get("joke")
+    api_url = "https://icanhazdadjoke.com/"
+    headers = {"Accept": "application/json"}
+    response = requests.get(api_url, headers=headers)
+    joke = response.json()
 
     # Output a random prompt
     with open("resources/comedy_prompts.txt", "r") as file:
