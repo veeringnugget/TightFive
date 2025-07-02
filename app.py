@@ -56,8 +56,8 @@ def new_joke():
             flash("Please enter a punchline", "punchline")
             error = True
         return render_template('new_joke.html')
-    with open("resources/tags.txt", "r") as file:
-        tags = [line.strip() for line in file if line.strip()]
+    tags = open("resources/tags.txt")
+    tags = tags.readlines()
     return render_template('new_joke.html', active_page='new_joke', tags=tags)
 
 @app.route('/sets')
