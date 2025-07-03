@@ -30,7 +30,7 @@ def gen_new_prompt():
     # Return the randomprompt
     return randomprompt
 
-@app.route('/new_joke', methods=["GET", "POST"])
+@app.route('/new_material', methods=["GET", "POST"])
 def new_joke():
     if request.method == "POST":
         # Get fields from user input and validate:
@@ -55,18 +55,40 @@ def new_joke():
         if not punchline:
             flash("Please enter a punchline", "punchline")
             error = True
-        return render_template('new_joke.html')
+        
+        # Status / Extra Notes (not mandatory)
+        status = request.form.get("status")
+        notes = request.form.get("notes")
+
+        # Database Connection
+        connect = sqlite3.connect("tightfive.db")
+        cursor = connect.cursor()
+        
+        #If no errors are found, can add info to the database
+        if error == False:
+            print(title, setup, punchline, status, notes, datetime.now())
+            # cursor.execute("INSERT INTO jokes (title, setup, punchline, status, notes, created_at, last_edited) VALUES(?, ?, ?, ?, ?, ?, ?)", (title, setup, punchline, status, notes, datetime.now()))
+        connect.close()
+
+
+
+
+
+
+
+
+        return render_template('new_material.html')
     tags = open("resources/tags.txt")
     tags = tags.readlines()
-    return render_template('new_joke.html', active_page='new_joke', tags=tags)
+    return render_template('new_material.html', active_page='new_material', tags=tags)
 
 @app.route('/sets')
 def sets():
-    return render_template('sets.html', active_page='build_set')
+    return render_template('sets.html', active_page='sets')
 
-@app.route('/archive')
-def archive():
-    return render_template('archive.html', active_page='archive')
+@app.route('/joke_vault')
+def joke_library():
+    return render_template('joke_vault.html', active_page='joke_vault')
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)
