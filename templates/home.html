@@ -62,11 +62,18 @@
     <!--Start of quick notes-->
     <div class="col d-flex">
         <div class="card w-100">
-            <div class="card-body d-flex justify-content-center flex-column">
+            <form class="card-body d-flex justify-content-center flex-column" method="post">
                 <h5 class="card-title pb-2 text-center">📝 Quick Notes</h5>
                     <textarea class="form-control mb-3" rows="3"></textarea>
-                    <button class="btn btn-primary btn-sm">Save to Vault</button>
-            </div>
+                    <button class="btn btn-primary btn-sm" name="notes">Save to Vault</button>
+                    {% with messages = get_flashed_messages(category_filter="notes") %}
+                        {% if messages %}
+                            {% for msg in messages %}
+                                <p class="error">{{ msg }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+            </form>
         </div>
     </div>
     <!--End of quick notes-->
