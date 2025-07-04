@@ -9,6 +9,14 @@ app.secret_key = '9yZ)<2$lc`*pG>948{(ZrHk~]FpFSrk%M_<aeBDZ2~JyFV[6tk]ww!y%PB<X|3
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    connect = sqlite3.connect("tightfive.db")
+    cursor = connect.cursor()
+
+    # Track Number of jokes written
+    jokeCount = cursor.execute("SELECT COUNT(*) FROM jokes").fetchone()[0]
+
+    # Track how many days in a row user has written for
+
     # API for Joke Generator
     api_url = "https://icanhazdadjoke.com/"
     headers = {"Accept": "application/json"}
@@ -26,14 +34,10 @@ def index():
                 flash("Note is blank", "notes")
                 return render_template('home.html', active_page='home', joke=joke, prompt=randomprompt)
             # add to sql database
-            print(note)
-            connect = sqlite3.connect("tightfive.db")
-            cursor = connect.cursor()
             cursor.execute("INSERT INTO notes (note, created_at) VALUES(?, datetime('now', 'localtime'))", (note,))
-            connect.commit()
-            connect.close()
-
-    return render_template('home.html', active_page='home', joke=joke, prompt=randomprompt)
+    connect.commit()
+    connect.close()
+    return render_template('home.html', active_page='home', joke=joke, prompt=randomprompt, jokeCount=jokeCount)
 
 @app.route('/gen_new_prompt')
 def gen_new_prompt():
