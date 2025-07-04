@@ -1,3 +1,4 @@
+--- JOKES ---
 CREATE TABLE jokes (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 title TEXT NOT NULL,
@@ -5,38 +6,43 @@ setup TEXT NOT NULL,
 punchline TEXT NOT NULL,
 status TEXT DEFAULT 'draft',
 notes TEXT,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-last_edited TIMESTAMP);
+created_at TEXT,
+last_edited TEXT
 );
 
+--- TAGS ---
 CREATE TABLE tags (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-name TEXT
+name TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE jokes_tags (
+--- JOKE_TAGS ---
+CREATE TABLE joke_tags (
 joke_id INTEGER NOT NULL,
 tags_id INTEGER NOT NULL,
 FOREIGN KEY(joke_id) REFERENCES jokes(id),
 FOREIGN KEY(tags_id) REFERENCES tags(id)
 );
 
+--- JOKE_VERSIONS ---
 CREATE TABLE joke_versions (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 joke_id INTEGER NOT NULL,
 version TEXT NOT NULL DEFAULT 'v1',
 setup TEXT,
 punchline TEXT,
-edited_at TIMESTAMP,
+edited_at TEXT,
 FOREIGN KEY(joke_id) REFERENCES jokes(id)
 );
 
+--- SETS ---
 CREATE TABLE sets (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT,
-created_at TIMESTAMP
+created_at TEXT
 );
 
+--- SET_JOKES ---
 CREATE TABLE set_jokes (
 set_id INTEGER NOT NULL,
 joke_id INTEGER NOT NULL,
@@ -45,9 +51,18 @@ FOREIGN KEY(set_id) REFERENCES sets(id),
 FOREIGN KEY(joke_id) REFERENCES jokes(id)
 );
 
+
+-- WRITING_LOG ---
 CREATE TABLE writing_log (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-date DATE,
+date TEXT,
 joke_id INTEGER NOT NULL,
 FOREIGN KEY(joke_id) REFERENCES jokes(id)
+);
+
+--- NOTES ---
+CREATE TABLE notes (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+note TEXT NOT NULL,
+created_at TEXT
 );
