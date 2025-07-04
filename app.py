@@ -46,6 +46,8 @@ def gen_new_prompt():
 
 @app.route('/new_material', methods=["GET", "POST"])
 def new_joke():
+    tags = open("resources/tags.txt")
+    tags = tags.readlines()
     if request.method == "POST":
         # Get fields from user input and validate:
         error = False
@@ -80,20 +82,16 @@ def new_joke():
         
         #If no errors are found, can add info to the database
         if error == False:
-            print(title, setup, punchline, status, notes, datetime.now())
-            # cursor.execute("INSERT INTO jokes (title, setup, punchline, status, notes, created_at, last_edited) VALUES(?, ?, ?, ?, ?, ?, ?)", (title, setup, punchline, status, notes, datetime.now()))
+            cursor.execute("INSERT INTO jokes (title, setup, punchline, status, notes, created_at, last_edited) VALUES(?, ?, ?, ?, ?, datetime('now', 'localtime'), datetime('now', 'localtime'))", (title, setup, punchline, status, notes))
+            joke_id = cursor.lastrowid
+            cursor.execute("INSERT OR IGNORE INTO tags (name) VALUES (?)", (tag,))
+            tag_id = cursor.execute("SELECT id FROM tags WHERE name = ?", (tag,)).fetchone()[0]
+            cursor.execute("INSERT INTO jokes_tags (joke_id, tags_id) VALUES (?, ?)", (joke_id, tag_id))
+            cursor.execute("INSERT INTO joke_versions (joke_id, setup, punchline, edited_at) VALUES (?, ?, ?, datetime('now', 'localtime'))", (joke_id, setup, punchline))
+            cursor.execute("INSERT INTO writing_log (date, joke_id) VALUES (datetime('now', 'localtime'), ?)", (joke_id,))
+        connect.commit()
         connect.close()
-
-
-
-
-
-
-
-
-        return render_template('new_material.html')
-    tags = open("resources/tags.txt")
-    tags = tags.readlines()
+        return render_template('new_material.html', active_page='new_material', tags=tags)
     return render_template('new_material.html', active_page='new_material', tags=tags)
 
 @app.route('/sets')
