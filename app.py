@@ -7,7 +7,7 @@ import requests
 app = Flask(__name__)
 app.secret_key = '9yZ)<2$lc`*pG>948{(ZrHk~]FpFSrk%M_<aeBDZ2~JyFV[6tk]ww!y%PB<X|3['
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
     # API for Joke Generator
     api_url = "https://icanhazdadjoke.com/"
@@ -18,6 +18,20 @@ def index():
     # Generate a random prompt when the page loads
     row = open("resources/comedy_prompts.txt")
     randomprompt = random.choice(row.readlines())
+
+    # If user clicks "save to vault" check not empty, else add it to the notes SQL table
+    if request.method == "POST":
+            note = request.form.get("notes")
+            if not note:
+                flash("Note is blank", "notes")
+                return render_template('home.html', active_page='home', joke=joke, prompt=randomprompt)
+            # add to sql database
+            print(note)
+            connect = sqlite3.connect("tightfive.db")
+            cursor = connect.cursor()
+            cursor.execute("INSERT INTO notes (note, created_at) VALUES(?, datetime('now', 'localtime'))", (note,))
+            connect.commit()
+            connect.close()
 
     return render_template('home.html', active_page='home', joke=joke, prompt=randomprompt)
 
