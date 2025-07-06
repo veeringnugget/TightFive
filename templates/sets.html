@@ -2,6 +2,36 @@
 {% block title %}Home{% endblock %}
 {% block body %}
 
-<h4>Sets</h4>
+<!-- Start of Page Header-->
+<div class="row text-center p-3">
+    <h3>Set Builder</h3>
+</div>
+<!--End of Page Header-->
+
+<!-- Start of left Container -->
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card" style="height: 78vh;">
+                <div class="card-body">
+                    <p class="fw-bold">Current Sets</p>
+                    <p>{{ sets }}</p>
+                    <a href="new_set" style="text-decoration: none;">+ Add New Set</a>
+                </div>
+            </div>
+        </div>
+        <!-- End of Left Container -->
+
+        <!-- Start of Right Container -->
+        <div class="col-8">
+            <div class="card" style="height: 78vh;">
+                <div class="card-body">
+                    Right-Side
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Right Container -->
 
 {% endblock %}
