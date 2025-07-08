@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Set Builder{% endblock %}
 {% block body %}
 
 <!-- Start of Page Header-->
@@ -17,6 +17,16 @@
                     <p class="fw-bold">Current Sets</p>
                     <p>{{ sets }}</p>
                     <a href="new_set" style="text-decoration: none;">+ Add New Set</a>
+                    <div class="card-jokes" style="margin-top: 150px;">
+                        <p class="fw-bold">Material Written</p>
+                        {% for row in jokes %}
+                        <div class="card mb-2" draggable="true" style="cursor: grab;">
+                            <div class="card-body">
+                                {{ row[1] }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -24,9 +34,60 @@
 
         <!-- Start of Right Container -->
         <div class="col-8">
-            <div class="card" style="height: 78vh;">
+            <div class="card" style="height: 78vh; overflow-y: scroll;">
                 <div class="card-body">
-                    FORM HERE
+                    <!--Start of title-->
+                    <form method="post">
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm">
+                        <input type="title" class="form-control" autofocus placeholder="Enter the name of your set" name="title">
+                        </div>
+                    </div>
+                    <!--End of title-->
+                    <!--Start of Description-->
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Desc</label>
+                        <div class="col-sm">
+                        <textarea class="form-control" rows="2" placeholder="Describe the set"></textarea>
+                        </div>
+                    </div>
+                    <!--End of Description-->
+                    <!--Start of Sections-->
+                    <!--Start of New Part of Joke-->
+
+                    <div class="new-section" style="border: 2px solid rgb(233, 233, 233); padding: 5px; margin-bottom: 10px;">
+                        <div class="row">
+                            <div class="col">
+                                <p class="section-no">Section 1</p> <!--Look at adding a count of the sections-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Section Name">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Est Section Length (Mins)" min="0" max="500">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col">
+                                <div class="card" id="new-joke" style="margin-bottom: 10px;">
+                                    <div class="card-body" style="opacity: 75%; padding: 6px 12px 6px 12px;">Drag Joke Here To Insert in your Set</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <p id="new_joke_button" style="cursor: pointer;">+ Add Another Joke</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--End of New Part of Joke-->
+                    <p class="mt-2" id="new_section_button" style="cursor: pointer;">+ Add a Section</p>
+                    <!--End of Sections-->
+                    </form>
                 </div>
             </div>
         </div>
