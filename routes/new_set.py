@@ -11,6 +11,10 @@ def new_set_form():
     sets = connect.execute("SELECT * FROM sets").fetchall()
     if not sets:
         sets = "No Sets Created"
+    # Load Jokes
+    jokes = connect.execute("SELECT * FROM jokes").fetchall()
+    if not jokes:
+        jokes = "No Jokes Written"
     connect.commit()
     connect.close()
-    return render_template('new_set.html', active_page='sets', sets=sets)
+    return render_template('new_set.html', active_page='sets', sets=sets, jokes=jokes)
