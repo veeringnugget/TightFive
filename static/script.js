@@ -1,7 +1,3 @@
-// Global Variables:
-// Counter for insert_section
-let counter = 1;
-
 // HOMEPAGE: Writing Prompt: Generates a Random Writing Prompt to User
 document.addEventListener("DOMContentLoaded", function()
 {
@@ -18,19 +14,23 @@ document.addEventListener("DOMContentLoaded", function()
 // NEW_SET: Add New Section & Update the Section Count
 document.addEventListener("DOMContentLoaded", function()
 {
-        document.getElementById("new_section_button").addEventListener("click", insertSection)
-        function insertSection()
+    // Store a copy of the original block:
+    const original = document.querySelector(".new-section")
+
+    document.addEventListener("click", section => {
+        if (section.target.matches(".add-section"))
         {
-            const block = document.querySelectorAll(".new-section")
-            const last = block[block.length-1]
-            const clone = last.cloneNode(true)
-            const position = clone.querySelector(".section-no")
-            counter = counter + 1
-            position.innerHTML = "Section " + counter
-            last.insertAdjacentElement("afterend", clone)
+            let position = section.target.parentElement
+            let blocks = position.querySelectorAll(".new-section")
+            const originalDuplicate = original.cloneNode(true)
+            count = blocks.length + 1
+            section = originalDuplicate.childNodes[1].childNodes[1].childNodes[1].innerHTML = "Section " + count
+            blocks = blocks[blocks.length - 1]
+            blocks.insertAdjacentElement("afterend", originalDuplicate)
         }
     })
 
+})
 // NEW_SET: Add New Joke
 document.addEventListener("DOMContentLoaded", function()
 {   
