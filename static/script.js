@@ -2,42 +2,55 @@
 // Counter for insert_section
 let counter = 1;
 
-// Writing Prompt:
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("prompt").addEventListener("click", randomPrompt);
-})
-
-async function randomPrompt() {
-    const response = await fetch("/gen_new_prompt");
-    let randomValue = await response.text();
-    document.getElementById("prompt-text").innerHTML = randomValue;
-}
-
-
-// New_Set - Add new section and update section count
+// HOMEPAGE: Writing Prompt: Generates a Random Writing Prompt to User
 document.addEventListener("DOMContentLoaded", function()
 {
-    document.getElementById("new_section_button").addEventListener("click", insert_section);
+    document.getElementById("prompt").addEventListener("click", randomPrompt => {
+        async function randomPrompt() {
+            const response = await fetch("/gen_new_prompt")
+            let randomValue = await response.text()
+            document.getElementById("prompt-text").innerHTML = randomValue
+        }
+        randomPrompt()
+    })
 })
 
-function insert_section() {
-    const section = document.querySelectorAll(".new-section");
-    const lastSection = section[section.length-1]
-    const clone = lastSection.cloneNode(true);
-    const position = clone.querySelector(".section-no");
-    counter = counter + 1;
-    position.innerHTML = "Section " + counter;
-    lastSection.insertAdjacentElement("afterend", clone);
-}
-
-// New_Set - Add new joke
+// NEW_SET: Add New Section & Update the Section Count
 document.addEventListener("DOMContentLoaded", function()
 {
-    document.getElementById("new_joke_button").addEventListener("click", insert_joke);
+        document.getElementById("new_section_button").addEventListener("click", insertSection)
+        function insertSection()
+        {
+            const block = document.querySelectorAll(".new-section")
+            const last = block[block.length-1]
+            const clone = last.cloneNode(true)
+            const position = clone.querySelector(".section-no")
+            counter = counter + 1
+            position.innerHTML = "Section " + counter
+            last.insertAdjacentElement("afterend", clone)
+        }
+    })
+
+// NEW_SET: Add New Joke
+document.addEventListener("DOMContentLoaded", function()
+{   
+    document.addEventListener("click", add => {
+        if (add.target.matches(".new-joke-button"))
+        {
+            let section = add.target.closest(".new-section")
+            let target = section.querySelector(".new-joke")
+            let html = section.querySelector(".new-joke")
+            const clone = html.cloneNode(true)
+            target.insertAdjacentElement("afterend", clone)
+        }
+    })
 })
 
-function insert_joke(){
-    const position = document.getElementById("new-joke");
-    const html = document.getElementById("new-joke").outerHTML;
-    position.insertAdjacentHTML("afterend", html)
-}
+// NEW_SET: Drag and Drop Functionality
+document.addEventListener("DOMContentLoaded", function()
+{
+
+})
+// NEW_SET: "Show More" Functionality On Material Written
+
+// JOKE_VAULT: Filter Based on User Input
