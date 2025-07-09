@@ -16,13 +16,14 @@ document.addEventListener("DOMContentLoaded", function()
 {
     // Store a copy of the original block:
     const original = document.querySelector(".new-section")
+    const duplicate = original.cloneNode(true)
 
     document.addEventListener("click", section => {
         if (section.target.matches(".add-section"))
         {
+            const originalDuplicate = duplicate.cloneNode(true)
             let position = section.target.parentElement
             let blocks = position.querySelectorAll(".new-section")
-            const originalDuplicate = original.cloneNode(true)
             count = blocks.length + 1
             section = originalDuplicate.childNodes[1].childNodes[1].childNodes[1].innerHTML = "Section " + count
             blocks = blocks[blocks.length - 1]
