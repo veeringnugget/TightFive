@@ -15,3 +15,18 @@ body {
 u:hover {
     cursor: pointer;
 }
+
+.mat-hover:hover {
+    background-color: rgb(245, 245, 245);
+    transition: 0.3s;
+}
+
+
+.draggable.dragging {
+    opacity: 50%;
+}
+
+.no-drop {
+    opacity: 75%;
+    padding: 6px 12px 6px 12px;
+}
