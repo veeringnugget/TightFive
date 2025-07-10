@@ -44,7 +44,8 @@ document.addEventListener("DOMContentLoaded", function()
         {   
             const originalDuplicate = duplicate.cloneNode(true)
             let section = add.target.closest(".new-section")
-            let location = section.childNodes[5]
+            let location = section.querySelectorAll(".new-joke")
+            location = location[location.length - 1]
             location.insertAdjacentElement("afterend", originalDuplicate)
             dragDrop()
         }
@@ -59,12 +60,9 @@ document.addEventListener("DOMContentLoaded", function()
 
 function dragDrop()
 {
-    // Bugs:
-    // 1. Only have one joke in a box
-    // 2. If joke is in box A, if add another joke selected, joke is duplicated down into B.
-
     const draggables = document.querySelectorAll(".draggable")
     const targets = document.querySelectorAll(".drop-zone")
+    const home = document.querySelector(".home-zone")
 
     draggables.forEach(draggable => {
         draggable.addEventListener("dragstart", () => {
@@ -83,15 +81,21 @@ function dragDrop()
     })
 
     targets.forEach(target => {
-        target.addEventListener("drop", () => {
-            current = document.querySelector(".dragging")
-            child = target.childNodes[1]
-            target.replaceChild(current, child)
-            card = target.childNodes[1]
-            card.classList.remove("mb-2")
-            card.classList.remove("card")
+        target.addEventListener("drop", (e) => {
+            if (!target.classList.contains("locked"))
+            {
+                current = document.querySelector(".dragging")
+                child = target.childNodes[1]
+                target.replaceChild(current, child)
+                card = target.childNodes[1]
+                card.classList.remove("mb-2")
+                card.classList.remove("card")
+                target.classList.add("locked")
+            }
         })
     })
+
+
 
 
 }
