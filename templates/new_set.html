@@ -19,13 +19,15 @@
                     <a href="new_set" style="text-decoration: none;">+ Add New Set</a>
                     <div class="card-jokes" style="margin-top: 150px;">
                         <p class="fw-bold">Material Written</p>
+                        <div class="drop-zone" style="border: 2px solid black;">
                         {% for row in jokes %}
-                        <div class="card mb-2" draggable="true" style="cursor: grab;">
+                        <div class="card mb-2 mat-hover draggable" draggable="true" style="cursor: grab;">
                             <div class="card-body">
                                 {{ row[1] }}
                             </div>
                         </div>
                         {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,20 +74,20 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col">
-                                <div class="card" id="new-joke" style="margin-bottom: 10px;">
-                                    <div class="card-body" style="opacity: 75%; padding: 6px 12px 6px 12px;">Drag Joke Here To Insert in your Set</div>
+                                <div class="card new-joke drop-zone" style="margin-bottom: 10px;">
+                                    <div class="card-body no-drop">Drag Joke Here To Insert in your Set</div>
                                 </div>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                                <p id="new_joke_button" style="cursor: pointer;">+ Add Another Joke</p>
+                                <p class="new-joke-button" style="cursor: pointer;">+ Add Another Joke</p>
                             </div>
                         </div>
                     </div>
 
                     <!--End of New Part of Joke-->
-                    <p class="mt-2" id="new_section_button" style="cursor: pointer;">+ Add a Section</p>
+                    <p class="mt-2 add-section" style="cursor: pointer;">+ Add a Section</p>
                     <!--End of Sections-->
                     </form>
                 </div>
