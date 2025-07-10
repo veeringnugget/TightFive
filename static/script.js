@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function()
             section = originalDuplicate.childNodes[1].childNodes[1].childNodes[1].innerHTML = "Section " + count
             blocks = blocks[blocks.length - 1]
             blocks.insertAdjacentElement("afterend", originalDuplicate)
+            dragDrop()
         }
     })
 
@@ -35,14 +36,17 @@ document.addEventListener("DOMContentLoaded", function()
 // NEW_SET: Add New Joke
 document.addEventListener("DOMContentLoaded", function()
 {   
+    const original = document.querySelector(".new-joke")
+    const duplicate = original.cloneNode(true)
+    
     document.addEventListener("click", add => {
         if (add.target.matches(".new-joke-button"))
-        {
+        {   
+            const originalDuplicate = duplicate.cloneNode(true)
             let section = add.target.closest(".new-section")
-            let target = section.querySelector(".new-joke")
-            let html = section.querySelector(".new-joke")
-            const clone = html.cloneNode(true)
-            target.insertAdjacentElement("afterend", clone)
+            let location = section.childNodes[5]
+            location.insertAdjacentElement("afterend", originalDuplicate)
+            dragDrop()
         }
     })
 })
@@ -50,8 +54,47 @@ document.addEventListener("DOMContentLoaded", function()
 // NEW_SET: Drag and Drop Functionality
 document.addEventListener("DOMContentLoaded", function()
 {
-
+    dragDrop()
 })
+
+function dragDrop()
+{
+    // Bugs:
+    // 1. Only have one joke in a box
+    // 2. If joke is in box A, if add another joke selected, joke is duplicated down into B.
+
+    const draggables = document.querySelectorAll(".draggable")
+    const targets = document.querySelectorAll(".drop-zone")
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener("dragstart", () => {
+            draggable.classList.add("dragging")
+        })
+
+        draggable.addEventListener("dragend", () => {
+            draggable.classList.remove("dragging")
+        })
+    })
+
+    targets.forEach(target => {
+        target.addEventListener("dragover", (e) => {
+            e.preventDefault()
+        })
+    })
+
+    targets.forEach(target => {
+        target.addEventListener("drop", () => {
+            current = document.querySelector(".dragging")
+            child = target.childNodes[1]
+            target.replaceChild(current, child)
+            card = target.childNodes[1]
+            card.classList.remove("mb-2")
+            card.classList.remove("card")
+        })
+    })
+
+
+}
 // NEW_SET: "Show More" Functionality On Material Written
 
 // JOKE_VAULT: Filter Based on User Input
