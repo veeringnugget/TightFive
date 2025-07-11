@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}Set Builder{% endblock %}
+{% block head %}<script src="/static/new_set.js"></script>{% endblock %}
 {% block body %}
 
 <!-- Start of Page Header-->
@@ -19,7 +20,7 @@
                     <a href="new_set" style="text-decoration: none;">+ Add New Set</a>
                     <div class="card-jokes" style="margin-top: 150px;">
                         <p class="fw-bold">Material Written</p>
-                        <div class="drop-zone" style="border: 2px solid black;">
+                        <div class="home-zone" style="height: 45vh;">
                         {% for row in jokes %}
                         <div class="card mb-2 mat-hover draggable" draggable="true" style="cursor: grab;">
                             <div class="card-body">
@@ -74,8 +75,8 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col">
-                                <div class="card new-joke drop-zone" style="margin-bottom: 10px;">
-                                    <div class="card-body no-drop">Drag Joke Here To Insert in your Set</div>
+                                <div class="card drop-zone new-joke" style="margin-bottom: 10px;">
+                                    <div class="card-body drag-joke" style="opacity: 75%; padding: 6px 12px 6px 12px;">Drag Joke Here To Insert in your Set</div>
                                 </div>
                             </div>
                         </div>
