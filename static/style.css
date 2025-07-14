@@ -26,7 +26,6 @@ u:hover {
     opacity: 50%;
 }
 
-.no-drop {
-    opacity: 75%;
-    padding: 6px 12px 6px 12px;
+.bi-info-circle::before {
+    cursor: pointer;
 }
