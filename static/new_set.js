@@ -1,43 +1,43 @@
-// GLOBAL:
+// Declare Global Variables:
 let newJoke
 
-// NEW_SET: Add New Section & Update the Section Count
+// Add New Section Block & Update the Section Count:
 document.addEventListener("DOMContentLoaded", function()
 {
     // Store a copy of the original block:
-    const original = document.querySelector(".new-section")
-    const duplicate = original.cloneNode(true)
+    const sectionTemplate = document.querySelector(".new-section")
+    const templateCopy = sectionTemplate.cloneNode(true)
 
-    document.addEventListener("click", section => {
-        if (section.target.matches(".add-section"))
+    document.addEventListener("click", e => {
+        if (e.target.matches(".add-section"))
         {
-            const originalDuplicate = duplicate.cloneNode(true)
-            let position = section.target.parentElement
-            let blocks = position.querySelectorAll(".new-section")
-            count = blocks.length + 1
-            section = originalDuplicate.childNodes[1].childNodes[1].childNodes[1].innerHTML = "Section " + count
-            blocks = blocks[blocks.length - 1]
-            blocks.insertAdjacentElement("afterend", originalDuplicate)
+            const newSection = templateCopy.cloneNode(true)
+            let parentContainer = e.target.parentElement
+            let existingSections = parentContainer.querySelectorAll(".new-section")
+            let sectionCount = existingSections.length + 1
+            newSection.childNodes[1].childNodes[1].childNodes[1].innerHTML = "Section " + sectionCount
+            existingSections = existingSections[existingSections.length - 1]
+            existingSections.insertAdjacentElement("afterend", newSection)
             dragDrop()
         }
     })
 
 })
-// NEW_SET: Add New Joke
+// Add a New Joke Row When User Clicks ".new-joke":
 document.addEventListener("DOMContentLoaded", function()
 {   
-    const original = document.querySelector(".new-joke")
-    console.log(original)
-    const duplicate = original.cloneNode(true)
-    
-    document.addEventListener("click", add => {
-        if (add.target.matches(".new-joke-button"))
+    // Store a copy of the original block:
+    const jokeTemplate = document.querySelector(".new-joke")
+    const templateCopy = jokeTemplate.cloneNode(true)
+
+    document.addEventListener("click", e => {
+        if (e.target.matches(".new-joke-button"))
         {   
-            const originalDuplicate = duplicate.cloneNode(true)
-            let section = add.target.closest(".new-section")
-            let location = section.querySelectorAll(".new-joke")
-            location = location[location.length - 1]
-            location.insertAdjacentElement("afterend", originalDuplicate)
+            const newJoke = templateCopy.cloneNode(true)
+            let currentSection = e.target.closest(".new-section")
+            let existingJokes = currentSection.querySelectorAll(".new-joke")
+            let lastJoke = existingJokes[existingJokes.length - 1]
+            lastJoke.insertAdjacentElement("afterend", newJoke)
             dragDrop()
         }
     })
@@ -54,12 +54,11 @@ function dragDrop()
 {
     const draggables = document.querySelectorAll(".draggable")
     const targets = document.querySelectorAll(".drop-zone")
-    const home = document.querySelector(".home-zone")
+    const homeZone = document.querySelector(".home-zone")
 
     draggables.forEach(draggable => {
         draggable.addEventListener("dragstart", () => {
             draggable.classList.add("dragging")
-            dropSource = draggable.parentElement
         })
 
         draggable.addEventListener("dragend", () => {
@@ -73,37 +72,37 @@ function dragDrop()
         })
     })
 
-    home.addEventListener("dragover", (e) => {
+    homeZone.addEventListener("dragover", (e) => {
         e.preventDefault()
     })
 
     targets.forEach(target => {
-        target.addEventListener("drop", (e) => {
+        target.addEventListener("drop", () => {
             if (!target.classList.contains("locked"))
             {
-                current = document.querySelector(".dragging")
-                child = target.childNodes[1]
-                target.replaceChild(current, child)
-                card = target.childNodes[1]
-                card.classList.remove("mb-2", "card")
+                let draggedElement = document.querySelector(".dragging")
+                let placeholder = target.getElementsByClassName("drag-joke")[0]
+                target.replaceChild(draggedElement, placeholder)
+                let droppedElement = target.getElementsByClassName("draggable")[0]
+                droppedElement.classList.remove("mb-2", "card")
                 target.classList.add("locked")
-                target.childNodes[1].classList.add("rightTarget")
+                target.getElementsByClassName("draggable")[0].classList.add("rightTarget")
             }
         })
     })
 
-    home.addEventListener("drop", (e) => {
-        current = document.querySelector(".dragging")
-        source = current.parentElement
+    homeZone.addEventListener("drop", (e) => {
+        let draggedElement = document.querySelector(".dragging")
+        let originalContainer = draggedElement.parentElement
         
-        if (source.classList.contains("locked"))
+        if (originalContainer.classList.contains("locked"))
         {
-            source.classList.remove("locked")
-            current.classList.remove("rightTarget")
-            current.classList.add("mb-2", "card")
-            home.appendChild(current)
-            const duplicateJoke = newJoke.cloneNode(true)
-            source.appendChild(duplicateJoke)
+            originalContainer.classList.remove("locked")
+            draggedElement.classList.remove("rightTarget")
+            draggedElement.classList.add("mb-2", "card")
+            homeZone.appendChild(draggedElement)
+            const newPlaceholder = newJoke.cloneNode(true)
+            originalContainer.appendChild(newPlaceholder)
         }
     })
 
