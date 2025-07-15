@@ -1,7 +1,72 @@
 {% extends "layout.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Joke Vault{% endblock %}
 {% block body %}
 
-<h4>Joke Library</h4>
+<!-- Start of Page Header-->
+<div class="row text-center p-3">
+    <h3>Joke Vault</h3>
+</div>
+<!--End of Page Header-->
+
+<!-- Start of left Container -->
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card" style="height: 78vh; overflow-y: scroll;">
+                <!--Start of Current Jokes-->
+                <div class="card-body">
+                    <p class="fw-bold">Current Jokes</p>
+                    {% for row in jokes %}
+                    <div class="card mb-2 mat-hover" style="cursor: pointer;">
+                        <div class="card-body">{{ row[1] }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!--End of Current Jokes-->
+                <!--Start of Tags-->
+                <div class="card-body">
+                    <p class="fw-bold">Tags</p>
+                    {% for row in tags %}
+                    <div class="card mb-2 mat-hover" style="cursor: pointer;">
+                        <div class="card-body">{{ row[1] }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!--End of Tags-->
+                <!--Start of Status-->
+                <div class="card-body">
+                    <p class="fw-bold">Status</p>
+                    {% for row in status %}
+                    <div class="card mb-2 mat-hover" style="cursor: pointer;">
+                        <div class="card-body">{{ row[0] }}</div>
+                    </div>
+                    {% endfor %}
+                </div> 
+                <!--End of Status-->
+                <!--Start of Notes-->
+                <div class="card-body">
+                    <p class="fw-bold">Notes</p>
+                    {% for row in notes %}
+                    <div class="card mb-2 mat-hover" style="cursor: pointer;">
+                        <div class="card-body">{{ row[1] }}</div>
+                    </div>
+                    {% endfor %}
+                </div>                 
+                <!--End of Notes-->
+            </div>
+        </div>
+        <!-- End of Left Container -->
+
+        <!-- Start of Right Container -->
+        <div class="col-8">
+            <div class="card" style="height: 78vh;">
+                <div class="card-body">
+                    Right-Side
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Right Container -->
 
 {% endblock %}
