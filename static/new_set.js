@@ -118,6 +118,9 @@ document.addEventListener("DOMContentLoaded", function (){
             let setup = title.dataset.setup;
             let punchline = title.dataset.punchline;
             let notes = title.dataset.notes;
+            if (notes === ""){
+                notes = "No Note Added"
+            }
             document.querySelector(".modal-title").innerHTML = "Quick Glance: " + heading
             document.querySelector(".inner-modal-setup").innerHTML = setup
             document.querySelector(".inner-modal-punchline").innerHTML = punchline
