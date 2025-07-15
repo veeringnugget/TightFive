@@ -23,9 +23,9 @@
                         <div class="home-zone" style="height: 45vh;">
                         {% for row in jokes %}
                         <div class="card mb-2 mat-hover draggable" draggable="true" style="cursor: grab;">
-                            <div class="card-body">
-                                {{ row[1] }}
-                                <i class="bi bi-info-circle ms-2"></i>
+                            <div class="card-body d-flex pb-0">
+                                <p class="title" data-heading="{{ row[1] }}" data-setup="{{ row[2] }}" data-punchline="{{ row[3] }}" data-status="{{ row[4] }}" data-notes="{{ row[5] }}">{{ row[1] }}</p>
+                                <a class="bi bi-info-circle ms-2" data-bs-toggle="modal" data-bs-target="#Modal"></a>
                             </div>
                         </div>
                         {% endfor %}
@@ -104,5 +104,34 @@
     </div>
 </div>
 <!-- End of Right Container -->
+
+<!--Start of popup-->
+
+<!-- Modal -->
+<div class="modal fade" id="Modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title fw-bold"></h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <p class="fw-bold">Setup:</p>
+                <p class="inner-modal-setup"></p>
+            </div>
+            <div>
+                <p class="fw-bold">Punchline:</p>
+                <p class="inner-modal-punchline"></p>  
+            </div>
+            <div>
+                <p class="fw-bold">Notes:</p>
+               <p class="inner-modal-notes"></p>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+ <!--End of popup-->
 
 {% endblock %}
