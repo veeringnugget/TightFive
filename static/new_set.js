@@ -107,6 +107,21 @@ function dragDrop()
     })
 
 }
-// NEW_SET: "Show More" Functionality On Material Written
 
-// JOKE_VAULT: Filter Based on User Input
+// Dynamically Load Joke Dependent on Title Selected
+document.addEventListener("DOMContentLoaded", function (){
+    document.addEventListener("click", e => {
+        if (e.target.matches(".bi")){
+            // get the title name
+            let title = e.target.parentElement.querySelector(".title")
+            let heading = title.dataset.heading
+            let setup = title.dataset.setup;
+            let punchline = title.dataset.punchline;
+            let notes = title.dataset.notes;
+            document.querySelector(".modal-title").innerHTML = "Quick Glance: " + heading
+            document.querySelector(".inner-modal-setup").innerHTML = setup
+            document.querySelector(".inner-modal-punchline").innerHTML = punchline
+            document.querySelector(".inner-modal-notes").innerHTML = notes
+        }
+    })
+})
