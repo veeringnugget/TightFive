@@ -1,5 +1,7 @@
 // Declare Global Variables:
 let newJoke
+let sectionCount = 1
+let jokesPerSection
 
 // Add New Section Block & Update the Section Count:
 document.addEventListener("DOMContentLoaded", function()
@@ -14,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function()
             const newSection = templateCopy.cloneNode(true)
             let parentContainer = e.target.parentElement
             let existingSections = parentContainer.querySelectorAll(".new-section")
-            let sectionCount = existingSections.length + 1
+            sectionCount = existingSections.length + 1
             newSection.childNodes[1].childNodes[1].childNodes[1].innerHTML = "Section " + sectionCount
             existingSections = existingSections[existingSections.length - 1]
             existingSections.insertAdjacentElement("afterend", newSection)
@@ -128,3 +130,48 @@ document.addEventListener("DOMContentLoaded", function (){
         }
     })
 })
+
+// Submit Form:
+// DOM Content Loaded
+// When Submit button is clicked:
+    // Get title, desc
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector("#save").addEventListener("click", (e) => {
+        // create a new array to store all info
+        let jokeCollection = []
+        let dict
+        // title
+        setName = document.querySelector("#setName").value
+        // desc
+        setDesc = document.querySelector("#setDesc").value
+        // find out number of jokes:
+        sectionNo = document.querySelectorAll(".section-no")
+        // For each section, count how many jokes there are
+        // Loop through each section:
+        for (let i = 0; i < sectionCount; i++){
+            parent = sectionNo[i].closest(".new-section")
+            jokesPerSection = parent.querySelectorAll('[data-heading').length
+            // Loop through the jokes in individual sections, add to dictionary:
+            for (let j = 0; j < jokesPerSection; j++){
+                dict = {}
+                let currentJoke = parent.querySelectorAll('[data-heading')[j].innerHTML
+                dict.section = (i + 1)
+                dict.jokeNo = (j + 1)
+                dict.joke = currentJoke
+                jokeCollection.push(dict)
+            }
+        }
+        const collectionData = JSON.stringify(jokeCollection)
+        fetch(`${window.origin}/new_set`, {
+            method: "POST",
+            credentials: "include",
+            body: collectionData,
+            cache: "no-cache",
+            headers: new Headers({
+                "content-type": "application/json"
+            })
+        })
+        e.preventDefault()
+    })
+})
+
