@@ -137,41 +137,43 @@ document.addEventListener("DOMContentLoaded", function (){
     // Get title, desc
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#save").addEventListener("click", (e) => {
-        // create a new array to store all info
-        let jokeCollection = []
-        let dict
         // title
         setName = document.querySelector("#setName").value
         // desc
         setDesc = document.querySelector("#setDesc").value
+        // Create a dictionary to store data
         // find out number of jokes:
         sectionNo = document.querySelectorAll(".section-no")
+
+        // Recreation:
+        let collectionData = {
+            setName: setName,
+            setDesc: setDesc
+        }
+
+        collectionData.sections = []
+
         // For each section, count how many jokes there are
         // Loop through each section:
         for (let i = 0; i < sectionCount; i++){
             parent = sectionNo[i].closest(".new-section")
             jokesPerSection = parent.querySelectorAll('[data-heading').length
+            sectionName = parent.querySelector(".section-name").value
+            sectionLength = parent.querySelector(".section-length").value
+            let jokeArray = []
             // Loop through the jokes in individual sections, add to dictionary:
             for (let j = 0; j < jokesPerSection; j++){
-                dict = {}
                 let currentJoke = parent.querySelectorAll('[data-heading')[j].innerHTML
-                dict.section = (i + 1)
-                dict.jokeNo = (j + 1)
-                dict.joke = currentJoke
-                jokeCollection.push(dict)
+                jokeArray.push(currentJoke)
+                collectionData.sections[i] = {
+                    sectionName: sectionName,
+                    sectionLength: sectionLength,
+                    joke: jokeArray
+                }
             }
         }
-        const collectionData = JSON.stringify(jokeCollection)
-        fetch(`${window.origin}/new_set`, {
-            method: "POST",
-            credentials: "include",
-            body: collectionData,
-            cache: "no-cache",
-            headers: new Headers({
-                "content-type": "application/json"
-            })
-        })
+
+
         e.preventDefault()
     })
 })
-
