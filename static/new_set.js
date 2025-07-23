@@ -173,6 +173,11 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
+        fetch(`/new_set`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json",},
+            body: JSON.stringify(collectionData)
+        })
 
         e.preventDefault()
     })
