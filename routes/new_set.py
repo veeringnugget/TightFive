@@ -19,8 +19,7 @@ def new_set_form():
         
     if request.method == "POST":
             req = request.get_json()
-            print(req)
-            res = make_response(jsonify({"message": "JSON Recieived"}), 200)
+            print(req["setName"])
             return render_template('new_set.html', active_page='sets', sets=sets, jokes=jokes)
     connect.commit()
     connect.close()
