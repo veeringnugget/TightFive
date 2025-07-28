@@ -15,7 +15,9 @@
             <div class="card" style="height: 78vh;">
                 <div class="card-body">
                     <p class="fw-bold">Current Sets</p>
-                    <p>{{ sets }}</p>
+                    {% for set in sets %}
+                    <p>{{ set[1] }}</p>
+                    {% endfor %}
                     <a href="new_set" style="text-decoration: none;">+ Add New Set</a>
                 </div>
             </div>
