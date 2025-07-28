@@ -20,7 +20,6 @@ def new_set_form():
         
     if request.method == "POST":
             req = request.get_json()
-            testJson = {'setName': '5 Minute Set', 'setDesc': 'Used for open mics', 'sections': [{'sectionName': 'Opening', 'sectionLength': '5', 'joke': ['Smartwatch Guilt', 'Zoom Life']}, {'sectionName': 'Middle', 'sectionLength': '9', 'joke': ['Tissue Reflex']}]}
 
             setName = req['setName']
             setDesc = req['setDesc']
