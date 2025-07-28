@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}Set Builder{% endblock %}
-{% block head %}<script src="/static/new_set.js"></script>{% endblock %}
+{% block head %}
+<script src="/static/new_set.js"></script>
+{% endblock %}
 {% block body %}
 
 <!-- Start of Page Header-->
@@ -43,9 +45,9 @@
                     <!--Start of title-->
                     <form method="post">
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">Title</label>
+                        <label class="col-sm-2 col-form-label" name="title">Title*</label>
                         <div class="col-sm">
-                        <input type="title" class="form-control" autofocus placeholder="Enter the name of your set" name="title">
+                        <input type="title" class="form-control" autofocus autocomplete="off" placeholder="Enter the name of your set" id="setName">
                         </div>
                     </div>
                     <!--End of title-->
@@ -53,7 +55,7 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Desc</label>
                         <div class="col-sm">
-                        <textarea class="form-control" rows="2" placeholder="Describe the set"></textarea>
+                        <textarea class="form-control" rows="2" placeholder="Describe the set" id="setDesc"></textarea>
                         </div>
                     </div>
                     <!--End of Description-->
@@ -63,21 +65,21 @@
                     <div class="new-section" style="border: 2px solid rgb(233, 233, 233); padding: 5px; margin-bottom: 10px;">
                         <div class="row">
                             <div class="col">
-                                <p class="section-no">Section 1</p> <!--Look at adding a count of the sections-->
+                                <p class="section-no">Section 1</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Section Name">
+                                <input type="text" autocomplete="off" class="form-control section-name" placeholder="Section Name" name="section-name">
                             </div>
                             <div class="col">
-                                <input type="number" class="form-control" placeholder="Est Section Length (Mins)" min="0" max="500">
+                                <input type="number" class="form-control section-length" placeholder="Est Section Length (Mins)" min="0" max="500" name="section-length">
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col">
                                 <div class="card drop-zone new-joke" style="margin-bottom: 10px;">
-                                    <div class="card-body drag-joke" style="opacity: 75%; padding: 6px 12px 6px 12px;">Drag Joke Here To Insert in your Set</div>
+                                    <div class="card-body drag-joke" style="opacity: 75%; padding: 6px 12px 6px 12px;" id="section-jokes">Drag Joke Here To Insert in your Set</div>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +96,7 @@
                     
                     <!--Start of button-->
                     <div class="div d-flex justify-content-center">
-                    <button class="btn btn-primary px-5">Save Set</button>
+                    <button class="btn btn-primary px-5" id="save">Save Set</button>
                     </div>
                     <!--End of button-->
                     </form>
