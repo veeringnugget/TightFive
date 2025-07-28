@@ -179,6 +179,16 @@ document.addEventListener("DOMContentLoaded", function() {
             body: JSON.stringify(collectionData)
         })
 
+        .then(function (response) {
+            if (response.status !== 200){
+                console.log("failure")
+            }
+            else {
+                console.log("success")
+                location.reload()
+            }
+        })
+
         e.preventDefault()
     })
 })
