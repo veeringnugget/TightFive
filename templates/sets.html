@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}Set Builder{% endblock %}
+{% block head %}
+<script src="/static/sets.js"></script>
+{% endblock %}
 {% block body %}
 
 <!-- Start of Page Header-->
@@ -16,7 +19,7 @@
                 <div class="card-body">
                     <p class="fw-bold">Current Sets</p>
                     {% for set in sets %}
-                    <p>{{ set[1] }}</p>
+                    <p class="premade-sets" data-title="{{ set[1] }}">{{ set[1] }}</p>
                     {% endfor %}
                     <a href="new_set" style="text-decoration: none;">+ Add New Set</a>
                 </div>
@@ -28,7 +31,12 @@
         <div class="col-8">
             <div class="card" style="height: 78vh;">
                 <div class="card-body">
-                    Right-Side
+                    <div class="row mb-3">
+                        <div class="col-sm-2">Title</div>
+                        {% for set in sets %}
+                        <div class="col setTitle"></div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
