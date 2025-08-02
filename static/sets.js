@@ -22,6 +22,20 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // Update inner text with data:
             document.querySelector(".setTitle").innerHTML = titleData
+            
+            // Send title to Flask:
+            fetch("/sets", {
+                method: "POST",
+                body: JSON.stringify(selectedSet.innerHTML),
+                headers: {"Content-Type": "application/json"}
+            })
+
+            .then(res => res.json())
+            .then(data => {
+                const desc = data.setInfo
+                document.querySelector(".set-desc").innerHTML = desc[2]
+            })
+
         }
     })
 })
