@@ -17,5 +17,5 @@ def new_set():
         setId = cursor.execute("SELECT id FROM sets WHERE title = ?", (setName,)).fetchall()[0][0]
         setTable = cursor.execute("SELECT id, title, description FROM sets WHERE id = ?", (setId,)).fetchone()
         connect.close()
-        return jsonify({"setInfo": setTable)
+        return jsonify({"setInfo": setTable})
     return render_template('sets.html', active_page='sets', sets=sets)
