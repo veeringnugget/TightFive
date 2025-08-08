@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function(){
                     lengthData.innerHTML = sectionData[i][2] + " minutes"
                     newRow.appendChild(lengthData)
                     // Loop through and add the jokes in order
-                    console.log(data.jokesData)
                 }
             })
         }
