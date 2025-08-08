@@ -39,3 +39,10 @@ u:hover {
     font-weight: bold;
 }
 
+.header {
+    font-weight: bold;
+}
+
+.subTitle {
+    font-style: italic;
+}
