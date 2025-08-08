@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, make_response, jsonify
-import json
 import sqlite3
 
 new_set = Blueprint("new_set", __name__, static_folder="static", template_folder="templates")
@@ -30,20 +29,17 @@ def new_set_form():
 
             for section in req['sections']:
                  jokeNo = 0
-                 sectionNo = sectionNo + 1 # Tracks the set No that we are in (checked and working)
-                 sectionName = section['sectionName'] # Tracks the section name we are in (checked and working)
-                 sectionLength = section['sectionLength'] # Tracks the length per section (checked and working)
+                 sectionNo = sectionNo + 1 # Tracks the set No that we are in
+                 sectionName = section['sectionName'] # Tracks the section name we are in
+                 sectionLength = section['sectionLength'] # Tracks the length per section
                  cursor.execute("INSERT INTO sections (set_id, section_id, section_name, length) VALUES (?, ?, ?, ?)", (set_id, sectionNo, sectionName, sectionLength))
                  connect.commit()
                  for joke in section['joke']:
                       # find the id which corresponds with the current joke
                       joke_id = cursor.execute("SELECT id FROM jokes WHERE title = ?", (joke,)).fetchone()[0]
                       jokeNo = jokeNo + 1
-                      cursor.execute("INSERT INTO section_joke (section_id, joke_id, order_index) VALUES (?, ?, ?)", (sectionNo, joke_id, jokeNo))
+                      cursor.execute("INSERT INTO sectional_jokes (set_id, section_id, joke_id, order_index) VALUES (?, ?, ?, ?)", (set_id, sectionNo, joke_id, jokeNo))
                       connect.commit()
-                      cursor.execute("INSERT INTO set_jokes (set_id, joke_id, order_index) VALUES (?, ?, ?)", (set_id, joke_id, jokeNo))
-                      connect.commit()
-                      
             make_response(jsonify({"message": "JSON received"}), 200)
     connect.close()
     return render_template('new_set.html', active_page='sets', sets=sets, jokes=jokes)
