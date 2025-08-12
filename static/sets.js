@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 const desc = data.setInfo
                 document.querySelector(".set-desc").innerHTML = desc[2]
                 const sectionData = data.sectionsInfo
-                const jokesData = data.jokesInfo
+                const jokesData = data.jokesData
                 for (let i = 0; i < sectionData.length; i++){
                     // New Row:
                     addNewRow()
@@ -94,7 +94,28 @@ document.addEventListener("DOMContentLoaded", function(){
                     let lengthData = newDiv()
                     lengthData.innerHTML = sectionData[i][2] + " minutes"
                     newRow.appendChild(lengthData)
-                    // Loop through and add the jokes in order
+
+                    // Add Jokes per Section:
+                    sectionalJokeCount = data.jokeCount[i][1]
+                    for (let j = 0; j < sectionalJokeCount; j++){
+                        // New Row:
+                        addNewRow()
+                        // Add Joke Title
+                        let jokeTitle = newDiv()
+                        jokeTitle.classList.add("col-sm-3", "subTitle")
+                        jokeTitle.innerHTML = jokesData[j][1]
+                        newRow.appendChild(jokeTitle)
+                        // Add Joke Setup
+                        let jokeSetup = newDiv()
+                        jokeSetup.classList.add("col")
+                        jokeSetup.innerHTML = jokesData[j][2]
+                        newRow.appendChild(jokeSetup)
+                        // Add Joke Punchline
+                        let jokePunchline = newDiv()
+                        jokePunchline.classList.add("col")
+                        jokePunchline.innerHTML = jokesData[j][3]
+                        newRow.appendChild(jokePunchline)
+                    }
                 }
             })
         }
