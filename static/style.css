@@ -46,3 +46,8 @@ u:hover {
 .subTitle {
     font-style: italic;
 }
+
+.selected {
+    background-color: blue;
+    color: white;
+}
