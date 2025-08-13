@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}Joke Vault{% endblock %}
+{% block head %}<script src="/static/vault.js"></script>{% endblock %}
 {% block body %}
 
 <!-- Start of Page Header-->
@@ -18,7 +19,7 @@
                     <p class="fw-bold">Current Jokes</p>
                     {% for row in jokes %}
                     <div class="card mb-2 mat-hover" style="cursor: pointer;">
-                        <div class="card-body">{{ row[1] }}</div>
+                        <div class="card-body current">{{ row[1] }}</div>
                     </div>
                     {% endfor %}
                 </div>
@@ -28,7 +29,7 @@
                     <p class="fw-bold">Tags</p>
                     {% for row in tags %}
                     <div class="card mb-2 mat-hover" style="cursor: pointer;">
-                        <div class="card-body">{{ row[1] }}</div>
+                        <div class="card-body tags">{{ row[1] }}</div>
                     </div>
                     {% endfor %}
                 </div>
@@ -38,7 +39,7 @@
                     <p class="fw-bold">Status</p>
                     {% for row in status %}
                     <div class="card mb-2 mat-hover" style="cursor: pointer;">
-                        <div class="card-body">{{ row[0] }}</div>
+                        <div class="card-body status">{{ row[0] }}</div>
                     </div>
                     {% endfor %}
                 </div> 
@@ -48,7 +49,7 @@
                     <p class="fw-bold">Notes</p>
                     {% for row in notes %}
                     <div class="card mb-2 mat-hover" style="cursor: pointer;">
-                        <div class="card-body">{{ row[1] }}</div>
+                        <div class="card-body notes">{{ row[1] }}</div>
                     </div>
                     {% endfor %}
                 </div>                 
