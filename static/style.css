@@ -47,7 +47,7 @@ u:hover {
     font-style: italic;
 }
 
-.selected {
+.card-body.selected {
     background-color: blue;
     color: white;
 }
